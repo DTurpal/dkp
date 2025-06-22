@@ -1,0 +1,49 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+### PostgreSQL ###
+*.pid
+*.dump
+pgdata/
+
+### Virtual Environment ###
+.venv/
+venv/
+
+
+### IDE ###
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+### Environment ###
+.env
+.env.local
+.env.*.local
+secrets.json
+
+### macOS ###
+.DS_Store
+
+
+
+
+### Миграции (по желанию) ###
+# Раскомментирую, если нужно игнорировать миграции:
+# */migrations/*
+# !*/migrations/__init__.py
+
+### PyCharm ###
+.idea/
+*.iml
+*.ipr
+*.iws
