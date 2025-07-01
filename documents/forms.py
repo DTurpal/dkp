@@ -15,10 +15,12 @@ class BuyerForm(forms.ModelForm):
         model = Buyer
         fields = '__all__'
         widgets = {
-            'phone': forms.TextInput(attrs={'placeholder': '+7 XXX XXX-XX-XX'}),
+            'gender': forms.RadioSelect(choices=Seller.GENDER_CHOICES),
+            'registration': forms.Textarea(attrs={'rows': 3}),
         }
 
 class RealEstateForm(forms.ModelForm):
     class Meta:
         model = RealEstate
         fields = '__all__'
+

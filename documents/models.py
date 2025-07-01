@@ -1,14 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, RegexValidator
 from num2words import num2words
 
 
 class Person(models.Model):
-    GENDER_CHOICES = [('M', 'Мужской'), ('F', 'Женский')]
+    GENDER_CHOICES = [
+        ('M', 'Мужской'),
+        ('F', 'Женский')
+    ]
 
-    full_name = models.CharField(max_length=100, verbose_name="ФИО")
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name="Пол")
+    full_name = models.CharField(
+        max_length=100,
+        verbose_name="ФИО",
+        validators=[RegexValidator(regex=r'^[А-Яа-яЁё\s-]+$')]
+    )
+    gender = models.CharField(
+        max_length=1, choices=GENDER_CHOICES, verbose_name="Пол"
+    )
     passport_series = models.CharField(
         max_length=4,
         validators=[MinLengthValidator(4)],
@@ -26,22 +35,18 @@ class Person(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.full_name or "Новая персона"
-
+        return self.full_name or "Новый клиент"
 
 class Seller(Person):
-    is_individual = models.BooleanField(default=True, verbose_name="Физ. лицо")
-
+    #is_individual = models.BooleanField(default=True, verbose_name="Физ. лицо")
     def __str__(self):
         return f"Продавец: {super().__str__()}"
-
+       #мое return f'Продавец:{self.full_name}'
 
 class Buyer(Person):
-    phone = models.CharField(max_length=20, blank=True, verbose_name="Телефон")
-
+    #phone = models.CharField(max_length=20, blank=True, verbose_name="Телефон")
     def __str__(self):
         return f"Покупатель: {super().__str__()}"
-
 
 class RealEstate(models.Model):
     PROPERTY_TYPES = [
@@ -51,7 +56,10 @@ class RealEstate(models.Model):
     ]
 
     property_type = models.CharField(max_length=20, choices=PROPERTY_TYPES)
-    cadastral_number = models.CharField(max_length=30)
+    cadastral_number = models.CharField(
+        max_length=30,
+        validators=[RegexValidator(regex=r'^\d{2}:\d{2}:\d{6,7}:\d+$')]
+    )
     address = models.TextField()
     area = models.DecimalField(max_digits=10, decimal_places=2)
 

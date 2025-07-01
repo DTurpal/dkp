@@ -4,15 +4,15 @@ from .models import Seller, Buyer, RealEstate, DKPTemplate, GeneratedDKP
 
 @admin.register(Seller)
 class SellerAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'passport_series', 'passport_number', 'is_individual')
+    list_display = ('full_name', )#'passport_series', 'passport_number',) #'is_individual')
     search_fields = ('full_name',)
-    list_filter = ('is_individual',)
+    #list_filter = ('is_individual',)
 
 
 @admin.register(Buyer)
 class BuyerAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'phone')
-    search_fields = ('full_name', 'phone')
+    list_display = ('full_name', )#'phone')
+    search_fields = ('full_name', )#'phone')
 
 
 @admin.register(RealEstate)
